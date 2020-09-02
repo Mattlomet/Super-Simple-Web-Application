@@ -1,0 +1,79 @@
+openapi: 3.0.0
+info:
+  title: Echo Service
+  description: A simple service that echos your input back to you.
+  version: 0.0.1
+servers: 
+    - url: http://localhost:8080
+      description: Local dev server
+
+paths:
+  /quote:
+    get:
+      summary: returns a random quote and who said the quote
+      description: A simple service that will return a Quote object
+      responses:
+        '200':
+          description: A random quote and author
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Quote'
+  /word:
+    get:
+      summary: returns a random word and definition.
+      description: This service will return a random word and definition.
+      responses:
+        '200':
+          description: A random word and definition.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Word'
+  /magic:
+    post:
+      summary: ask a question and get an answer
+      description: A service to mock an Eight Ball.
+      requestBody:
+        description: question to ask the eight ball
+        required: true
+        content:
+          application/json:
+            schema:
+              type: string
+      responses:
+        '200':
+          description: The string the you sent to the service.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Answer' 
+components:
+  schemas:
+    Quote:
+      properties:
+        author:
+          type: string
+        quote:
+          type: string
+      required: 
+        - author
+        - quote
+    Word:
+      properties:
+        word:
+          type: string
+        definition:
+          type: string
+      required: 
+        - word
+        - definition
+    Answer:
+      properties:
+        question:
+          type: string
+        answer:
+          type: string
+      required: 
+        - question
+        - answer     
